@@ -5,7 +5,7 @@ world.events.beforeChat.subscribe(chat => {
     const { sender: player, message } = chat;
     if (!message.startsWith(prefix)) return;
     if (!player.hasTag("lore")) { 
-      player.tell("§cloreTagが付いてないためこのコマンドは使えません")
+      player.sendMessage("§cloreTagが付いてないためこのコマンドは使えません")
       chat.cancel = true;
       return;
     }
@@ -18,16 +18,16 @@ world.events.beforeChat.subscribe(chat => {
         case "set": {
             const item = player.getComponent("inventory").container.getItem(player.selectedSlot);
             if (!item) { 
-              player.tell("§cアイテムを持っていません")
+              player.sendMessage("§cアイテムを持っていません")
               return;
             }
             item.setLore(args);
             player.getComponent("inventory").container.setItem(player.selectedSlot,item);
-            player.tell(`§a手持ちのアイテムの説明文を ${args} §r§aにしました`)
+            player.sendMessage(`§a手持ちのアイテムの説明文を ${args} §r§aにしました`)
             break;
         }
         default: {
-            player.tell("そのようなコマンドはありません。");
+            player.sendMessage("そのようなコマンドはありません。");
             break;
         }
     }
